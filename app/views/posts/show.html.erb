@@ -2,23 +2,12 @@
 
 <p><%=current_user.name %></p>
 <h3><%= @post.content %></h3>
-<p>👍 <%= @post.likes %></p>
- <% if @post.favorited_by?(current_user) %>
-    <p>
-      <%= link_to post_favorites_path(@post), method: :delete do %>
-        ♥<%= @post.favorites.count %>
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to post_favorites_path(@post), method: :post do %>
-        ♡<%= @post.favorites.count %>
-      <% end %>
-    </p>
-  <% end %>
+<hr>
 
-
-<%= link_to "Edit", edit_post_path(@post) %>
+<% if @post.likes.where(user_id: current_user.id).count == 0 %>
+  <%= button_to "👍#{@post.likes.count} Like", likes_path(post_id: @post.id), method: :post, class:"btn btn-primary"%>
+<% else %>
+  <%= button_to "👍#{@post.likes.count} Unlike", like_path(@post.id), method: "delete", class:"btn btn-primary"%>
+<% end %>
 <%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete %>
-
 <%= link_to "Back to all posts", posts_path %>

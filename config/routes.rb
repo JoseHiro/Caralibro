@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   #   registration: 'users/registrations'
   # }
   resources :users, :only => [:index, :show]
-  resources :posts, only:[:index, :new, :show, :create, :destory, :edit, :update] do
-    resources :favorites, only: [:create, :destroy]
-  end
+  resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+  resources :likes, only: [:create, :destroy]
 end
