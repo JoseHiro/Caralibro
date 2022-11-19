@@ -1,0 +1,8 @@
+<h1>Edit page</h1>
+<p class="big">Hello</p>
+<hr>
+  <%= form_for(@post) do |f| %>
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+  <%= f.submit %>
+  <% end %>

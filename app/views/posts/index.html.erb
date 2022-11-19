@@ -1,0 +1,13 @@
+<h1>All posts</h1>
+
+<div class="">
+  <% if @posts %>
+    <% @posts.each do |post| %>
+      <p><%= current_user.name %></p>
+      <p><%= link_to post.content, post_path(post)%></p>
+      <p>👍<%= post.likes%></p>
+      <p>Comments</p>
+      <hr>
+    <% end %>
+  <% end %>
+</div>

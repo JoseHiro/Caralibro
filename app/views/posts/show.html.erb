@@ -1,0 +1,24 @@
+<h3>Show post page</h3>
+
+<p><%=current_user.name %></p>
+<h3><%= @post.content %></h3>
+<p>👍 <%= @post.likes %></p>
+ <% if @post.favorited_by?(current_user) %>
+    <p>
+      <%= link_to post_favorites_path(@post), method: :delete do %>
+        ♥<%= @post.favorites.count %>
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to post_favorites_path(@post), method: :post do %>
+        ♡<%= @post.favorites.count %>
+      <% end %>
+    </p>
+  <% end %>
+
+
+<%= link_to "Edit", edit_post_path(@post) %>
+<%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete %>
+
+<%= link_to "Back to all posts", posts_path %>
