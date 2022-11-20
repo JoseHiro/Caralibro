@@ -13,8 +13,4 @@ class LikesController < ApplicationController
     like.destroy
     redirect_to post_path(params[:id])
   end
-  # def chack_like
-  #   like = Like.find(params[:post_id])
-  #   like
-  # end
 end

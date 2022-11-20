@@ -1,0 +1,20 @@
+<h1>Show user page</h1>
+
+<p>username</p>
+<h3><%= @user.name %></h3> <p><%= "Following:#{@user.following_ids.count}  Followers: #{@user.follower_ids.count}"%></p>
+
+<% if current_user != @name %>
+  <% if @user.is_followed_by?(current_user) %>
+    <%= button_to "Unfollow", user_relationships_path(@user), method: :delete, class:"btn btn-primary" %>
+  <% else %>
+    <%= button_to "Follow", user_relationships_path(@user), method: :post, class:"btn btn-primary" %>
+  <% end %>
+<% end %>
+
+<p>Posts</p>
+
+<% @all_post.each do |post| %>
+<p><%= post.content %></p>
+<p><%= "#{post.likes.count} likes" %></p>
+<hr>
+<% end %>
