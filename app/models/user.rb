@@ -16,4 +16,8 @@ class User < ApplicationRecord
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
+
+  def already_liked?(post)
+    self.likes.exists?(post_id: post.id)
+  end
 end

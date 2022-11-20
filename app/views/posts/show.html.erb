@@ -4,10 +4,12 @@
 <h3><%= @post.content %></h3>
 <hr>
 
-<% if @post.likes.where(user_id: current_user.id).count == 0 %>
-  <%= button_to "👍#{@post.likes.count} Like", likes_path(post_id: @post.id), method: :post, class:"btn btn-primary"%>
+<% if current_user.already_liked?(@post) %>
+ <%= button_to 'Unlike', post_likes_path(@post), method: :delete %>
 <% else %>
-  <%= button_to "👍#{@post.likes.count} Unlike", like_path(@post.id), method: "delete", class:"btn btn-primary"%>
+ <%= button_to "like", post_likes_path(@post), method: :post %>
 <% end %>
+<%= @post.likes.count %>
+
 <%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete %>
 <%= link_to "Back to all posts", posts_path %>

@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     get :followings, on: :member
     get :followers, on: :member
   end
+
   resources :users, :only => [:index, :show]
-  resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy]
-  resources :likes, only: [:create, :destroy]
+  
+  resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+    resource :likes, only: [:create, :destroy]
+  end
+  # resources :likes, only: [:create, :destroy]
 end

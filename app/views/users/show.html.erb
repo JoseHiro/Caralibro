@@ -1,13 +1,20 @@
-<h1>Show user page</h1>
 
-<p>username</p>
-<h3><%= @user.name %></h3> <p><%= "Following:#{@user.following_ids.count}  Followers: #{@user.follower_ids.count}"%></p>
+<% if @user == current_user %>
 
-<% if current_user != @name %>
-  <% if @user.is_followed_by?(current_user) %>
-    <%= button_to "Unfollow", user_relationships_path(@user), method: :delete, class:"btn btn-primary" %>
-  <% else %>
-    <%= button_to "Follow", user_relationships_path(@user), method: :post, class:"btn btn-primary" %>
+  <h3>My page</h3>
+<% end %>
+
+<p>Username</p>
+<%= @user.name %>
+<p class="text-small"><%= link_to @user.following_ids.count, followings_user_path(@user)%> following <%= link_to @user.follower_ids.count, followers_user_path(@user)%> followers</p>
+
+<% if @user != current_user %>
+  <% if current_user != @name %>
+    <% if @user.is_followed_by?(current_user) %>
+      <%= button_to "Unfollow", user_relationships_path(@user), method: :delete, class:"btn btn-primary" %>
+    <% else %>
+      <%= button_to "Follow", user_relationships_path(@user), method: :post, class:"btn btn-primary" %>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -15,6 +22,11 @@
 
 <% @all_post.each do |post| %>
 <p><%= post.content %></p>
-<p><%= "#{post.likes.count} likes" %></p>
+<% if current_user.already_liked?(post) %>
+ <%= button_to 'Unlike', post_likes_path(post), method: :delete %>
+<% else %>
+ <%= button_to "like", post_likes_path(post), method: :post %>
+<% end %>
+<%= post.likes.count %>
 <hr>
 <% end %>

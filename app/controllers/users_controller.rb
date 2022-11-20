@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   def index
     @users = User.where.not(id: current_user.id)
   end
@@ -10,12 +11,12 @@ class UsersController < ApplicationController
 
   def followings
     user = User.find(params[:id])
-    @user = user.followings
+    @users = user.followings
   end
 
   def followers
     user = User.find(params[:id])
-    @user = user.followers
+    @users = user.followers
   end
 
   private

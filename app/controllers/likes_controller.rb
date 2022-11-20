@@ -1,16 +1,14 @@
 class LikesController < ApplicationController
   def create
-    if Like.create(post_id: params[:post_id], user_id: current_user.id)
-      flash[:notice] = "You have liked a post"
-    else
-      flash[:danger] = "Your action has failed"
-    end
-    redirect_to post_path(params[:post_id])
+    @like = current_user.likes.create(post_id: params[:post_id])
+    # go back to the previous page, if not to the home page
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    like = Like.find(post_id: params[:id], user_id: current_user.id)
-    like.destroy
-    redirect_to post_path(params[:id])
+    @post = Post.find(params[:post_id])
+    @like = current_user.likes.find_by(post_id: @post.id)
+    @like.destroy
+    redirect_back(fallback_location: root_path)
   end
 end
