@@ -1,15 +1,23 @@
-<h3>Show post page</h3>
 
-<p><%=current_user.name %></p>
-<h3><%= @post.content %></h3>
-<hr>
+<div class="container marketing">
+    <div class="row d-flex justify-content-center">
+      <div class="col-10 mt-5">
+        <h3>Post page</h3>
+        <p><%=current_user.name %></p>
+        <h3><%= @post.content %></h3>
+        <hr>
 
-<% if current_user.already_liked?(@post) %>
- <%= button_to 'Unlike', post_likes_path(@post), method: :delete %>
-<% else %>
- <%= button_to "like", post_likes_path(@post), method: :post %>
-<% end %>
-<%= @post.likes.count %>
-
-<%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete %>
-<%= link_to "Back to all posts", posts_path %>
+        <% if current_user.already_liked?(@post) %>
+          <%= button_to post_likes_path(@post), method: :delete do%>
+            <i class="fa-solid fa-thumbs-up"></i>
+          <% end %>
+        <% else %>
+          <%= button_to post_likes_path(@post), method: :post do %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% end %>
+        <% end %>
+        <%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete %>
+        <%= link_to "Back to all posts", posts_path %>
+      </div>
+    </div>
+  </div>

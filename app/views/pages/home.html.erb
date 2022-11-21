@@ -1,10 +1,25 @@
-<h1>Pages#home</h1>
-<% if current_user %>
-  <% @posts.each do |post| %>
-    <p><%= current_user.name %></p>
-    <p><%=  link_to post.content, post_path(post)%></p>
-    <p>Comments</p>
-    <hr>
-  <% end %>
-<% end %>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container marketing">
+  <div class="row d-flex justify-content-center">
+    <div class="col-10 mt-5">
+    <h1>Home Page</h1>
+    <% if current_user %>
+      <% @posts.each do |post| %>
+        <p><%= current_user.name %></p>
+        <p><%=  link_to post.content, post_path(post)%></p>
+        <%= post.likes.count %>
+        <% if current_user.already_liked?(post) %>
+        <%= button_to post_likes_path(post), method: :delete do%>
+          <i class="fa-solid fa-thumbs-up"></i>
+        <% end %>
+      <% else %>
+        <%= button_to post_likes_path(post), method: :post do %>
+          <i class="fa-regular fa-thumbs-up"></i>
+        <% end %>
+      <% end %>
+        <p>Comments</p>
+        <hr>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
