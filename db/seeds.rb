@@ -33,7 +33,7 @@
   3.times do |t|
     Post.create(
       content: Faker::Quote.famous_last_words,
-      user_id: user_now.id
+      user: user_now
     )
   end
 end
