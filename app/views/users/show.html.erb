@@ -3,6 +3,7 @@
     <div class="col-10 mt-5">
       <% if @user == current_user %>
         <h3>My page</h3>
+          <%= cl_image_tag @user.avatar.key, height: 300, width: 400, crop: :fill %>
       <% end %>
       <h3><%= @user.name %></h3>
       <p class="text-small"><%= link_to @user.following_ids.count, followings_user_path(@user)%> following <%= link_to @user.follower_ids.count, followers_user_path(@user)%> followers</p>
@@ -20,6 +21,9 @@
       <p>Posts</p>
       <hr>
       <% @all_post.each do |post| %>
+      <% post.photos.each do |photo| %>
+          <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
+        <% end %>
       <p><%= post.content %></p>
       <% if current_user.already_liked?(post) %>
         <%= button_to post_likes_path(post), method: :delete do%>

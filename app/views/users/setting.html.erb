@@ -1,0 +1,9 @@
+<h1>Setting page</h1>
+
+<%# # change or add photo %>
+
+<p>Set your profile Picture</p>
+<%= simple_form_for(@user) do |f| %>
+  <%= f.input :photo, as: :file %>
+  <%= f.button :submit, "Add", class:"btn btn-primary" %>
+<% end %>

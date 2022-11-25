@@ -19,9 +19,13 @@ class UsersController < ApplicationController
     @users = user.followers
   end
 
+  def setting
+    @user = User.find(params[:id] || params[:format])
+  end
+
   private
 
   def params_user
-    params.require(:user).permit(:id)
+    params.require(:user).permit(:id, :photo)
   end
 end

@@ -1,9 +1,12 @@
-<div class="container marketing">
+<div class="container">
   <div class="row d-flex justify-content-center">
     <div class="col-10 mt-5">
     <h1>Home Page</h1>
     <% if current_user %>
       <% @posts.each do |post| %>
+        <% post.photos.each do |photo| %>
+          <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
+        <% end %>
         <p><%= current_user.name %></p>
         <p><%=  link_to post.content, post_path(post)%></p>
         <%= post.likes.count %>
