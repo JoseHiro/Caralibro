@@ -8,7 +8,7 @@
 
 
 # accounts
-
+User.destroy_all
 
 20.times do |n|
   select_name = Faker::Sports::Football.player

@@ -1,42 +1,67 @@
 <div class="container marketing">
   <div class="row d-flex justify-content-center">
     <div class="col-10 mt-5">
-      <% if @user == current_user %>
-        <h3>My page</h3>
-          <%= cl_image_tag @user.avatar.key, height: 300, width: 400, crop: :fill %>
-      <% end %>
-      <h3><%= @user.name %></h3>
-      <p class="text-small"><%= link_to @user.following_ids.count, followings_user_path(@user)%> following <%= link_to @user.follower_ids.count, followers_user_path(@user)%> followers</p>
-
-      <% if @user != current_user %>
-        <% if current_user != @name %>
-          <% if @user.is_followed_by?(current_user) %>
-            <%= button_to "Unfollow", user_relationships_path(@user), method: :delete, class:"btn btn-primary" %>
-          <% else %>
-            <%= button_to "Follow", user_relationships_path(@user), method: :post, class:"btn btn-primary" %>
+      <div class="d-flex justify-content-around">
+        <div>
+          <% if @user == current_user %>
+            <h2>My page</h2>
+              <%= cl_image_tag @user.avatar.key, height: 200, width: 200, crop: :fill, class:"navbar-user-pic"%>
           <% end %>
-        <% end %>
-      <% end %>
+          <h1><%= @user.name %></h1>
+          <p class="text-small"><%= link_to @user.following_ids.count, followings_user_path(@user)%> following <%= link_to @user.follower_ids.count, followers_user_path(@user)%> followers</p>
 
-      <p>Posts</p>
-      <hr>
-      <% @all_post.each do |post| %>
-      <% post.photos.each do |photo| %>
-          <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
-        <% end %>
-      <p><%= post.content %></p>
-      <% if current_user.already_liked?(post) %>
-        <%= button_to post_likes_path(post), method: :delete do%>
-          <i class="fa-solid fa-thumbs-up"></i>
-        <% end %>
-      <% else %>
-        <%= button_to post_likes_path(post), method: :post do %>
-          <i class="fa-regular fa-thumbs-up"></i>
-        <% end %>
+          <% if @user != current_user %>
+            <% if current_user != @name %>
+              <% if @user.is_followed_by?(current_user) %>
+                <%= button_to "Unfollow", user_relationships_path(@user), method: :delete, class:"btn btn-primary" %>
+              <% else %>
+                <%= button_to "Follow", user_relationships_path(@user), method: :post, class:"btn btn-primary" %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div>
+        <% if @user.posts %>
+          <div class="card-deck" style="width: 500px;">
+          <% current_user.posts.each do |post| %>
+            <div class="card mb-3">
+          <% post.photos.each do |photo| %>
+            <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
+          <% end %>
+          <div class="card-header">
+            <%= cl_image_tag current_user.avatar.key, height: 30, width: 30, crop: :fill, class:"navbar-user-pic"%>
+            <%= current_user.name %>
+          </div>
+            <div class="card-body">
+            <p class="card-text"><%= post.content %></p>
+            <div class="d-flex">
+            <p><%= post.likes.count %></p>
+             <% if current_user.already_liked?(post) %>
+              <%= button_to post_likes_path(post), method: :delete do%>
+                <i class="fa-solid fa-thumbs-up"></i>
+              <% end %>
+             <% else %>
+              <%= button_to post_likes_path(post), method: :post do %>
+                <i class="fa-regular fa-thumbs-up"></i>
+              <% end %>
+             <% end %>
+            </div>
+          </div>
+        </div>
       <% end %>
-        <%= post.likes.count %>
-      <hr>
-      <% end %>
+      </div>
+    <% end %>
+
+
+
+
+
+
+
+        <%# ------------------------------------------------------------ %>
+
+        </div>
     </div>
   </div>
 </div>
