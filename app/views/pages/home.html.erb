@@ -2,7 +2,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col-10 mt-5">
     <h1>Home Page</h1>
-    <% if current_user %>
+    <% if current_user.logged_in? %>
       <% @posts.each do |post| %>
         <% post.photos.each do |photo| %>
           <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
