@@ -1,7 +1,14 @@
-<h1>New posts Page</h1>
+<div class="container marketing">
+  <div class="row d-flex justify-content-center">
+    <div class="col-10 mt-5">
+    <h1>New posts Page</h1>
 
-<%= form_for(@post) do |f| %>
-  <%= f.label :content%>
-  <%= f.text_field :content%>
-  <%= f.submit %>
-<% end %>
+    <%= simple_form_for(@post) do |f| %>
+      <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+      <%= f.label :content%>
+      <%= f.text_field :content%>
+      <%= f.submit %>
+    <% end %>
+    </div>
+  </div>
+</div>

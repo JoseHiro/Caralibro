@@ -1,14 +1,24 @@
 Rails.application.routes.draw do
+  root to: "pages#home"
+  get '/contact' => "pages#contact"
   get 'users/index'
   get 'users/show'
-  root to: "pages#home"
+  get 'users/setting', to: "users#setting"
+
   devise_for :users
-  # controllers: {
-  #   sessions: 'users/sessions',
-  #   registration: 'users/registrations'
-  # }
-  resources :users, :only => [:index, :show]
-  resources :posts, only:[:index, :new, :show, :create, :destory, :edit, :update] do
-    resources :favorites, only: [:create, :destroy]
+
+  resources :users do
+    resource :relationships, only: [:create, :destroy]
+    get :followings, on: :member
+    get :followers, on: :member
   end
+
+  resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+    resource :likes, only: [:create, :destroy]
+  end
+
+  # resources :users, :only => [:index, :show]
+
+
+
 end

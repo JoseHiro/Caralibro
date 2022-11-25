@@ -1,8 +1,7 @@
 require "test_helper"
 
-class FavoritesControllerTest < ActionDispatch::IntegrationTest
+class RelationshipsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
 end
-  

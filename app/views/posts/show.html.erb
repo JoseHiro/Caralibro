@@ -1,24 +1,30 @@
-<h3>Show post page</h3>
 
-<p><%=current_user.name %></p>
-<h3><%= @post.content %></h3>
-<p>👍 <%= @post.likes %></p>
- <% if @post.favorited_by?(current_user) %>
-    <p>
-      <%= link_to post_favorites_path(@post), method: :delete do %>
-        ♥<%= @post.favorites.count %>
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to post_favorites_path(@post), method: :post do %>
-        ♡<%= @post.favorites.count %>
-      <% end %>
-    </p>
-  <% end %>
+<div class="container marketing">
+    <div class="row d-flex justify-content-center">
+      <div class="col-10 mt-5">
+        <h3>Post page</h3>
+        <% @post.photos.each do |photo| %>
+          <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
+        <% end %>
+        <p><%=current_user.name %></p>
+        <h3><%= @post.content %></h3>
+        <hr>
+        <p><%=  @post.likes.count%></p>
+        <% if current_user.already_liked?(@post) %>
+          <%= button_to post_likes_path(@post), method: :delete do%>
+            <i class="fa-solid fa-thumbs-up"></i>
+          <% end %>
+        <% else %>
+          <%= button_to post_likes_path(@post), method: :post do %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% end %>
+        <% end %>
+        <%= link_to "Edit post", edit_post_path(@post), class:"btn btn-primary"%>
+        <%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger"%>
+        <%= link_to "Back to all posts", posts_path %>
 
 
-<%= link_to "Edit", edit_post_path(@post) %>
-<%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete %>
 
-<%= link_to "Back to all posts", posts_path %>
+      </div>
+    </div>
+  </div>
