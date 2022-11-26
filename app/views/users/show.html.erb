@@ -5,7 +5,17 @@
         <div>
           <% if @user == current_user %>
             <h2>My page</h2>
+              <% if current_user.avatar.attached? %>
+                <%= cl_image_tag @user.avatar.key, height: 200, width: 200, crop: :fill, class:"navbar-user-pic"%>
+              <% else %>
+                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" style="width: 200px; height: 200px; border-radius: 50%;" alt="">
+            <% end %>
+          <% else %>
+            <% if  @user.avatar.attached?%>
               <%= cl_image_tag @user.avatar.key, height: 200, width: 200, crop: :fill, class:"navbar-user-pic"%>
+            <% else %>
+              <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" style="width: 200px; height: 200px; border-radius: 50%;" alt="">
+            <% end %>
           <% end %>
           <h1><%= @user.name %></h1>
           <p class="text-small"><%= link_to @user.following_ids.count, followings_user_path(@user)%> following <%= link_to @user.follower_ids.count, followers_user_path(@user)%> followers</p>
@@ -13,9 +23,9 @@
           <% if @user != current_user %>
             <% if current_user != @name %>
               <% if @user.is_followed_by?(current_user) %>
-                <%= button_to "Unfollow", user_relationships_path(@user), method: :delete, class:"btn btn-primary" %>
+                <%= button_to "Unfriend", user_relationships_path(@user), method: :delete, class:"btn btn-outline-primary" %>
               <% else %>
-                <%= button_to "Follow", user_relationships_path(@user), method: :post, class:"btn btn-primary" %>
+                <%= button_to "+ Add friend", user_relationships_path(@user), method: :post, class:"btn btn-primary" %>
               <% end %>
             <% end %>
           <% end %>
@@ -24,25 +34,29 @@
         <div>
         <% if @user.posts %>
           <div class="card-deck" style="width: 500px;">
-          <% current_user.posts.each do |post| %>
+          <% @user.posts.each do |post| %>
             <div class="card mb-3">
           <% post.photos.each do |photo| %>
             <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
           <% end %>
           <div class="card-header">
-            <%= cl_image_tag current_user.avatar.key, height: 30, width: 30, crop: :fill, class:"navbar-user-pic"%>
-            <%= current_user.name %>
+            <% if  @user.avatar.attached?%>
+              <%= cl_image_tag @user.avatar.key, height: 30, width: 30, crop: :fill, class:"navbar-user-pic"%>
+            <% else %>
+              <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" style="width: 40px; height:40px; border-radius: 50%;" alt="">
+            <% end %>
+            <%= @user.name %>
           </div>
             <div class="card-body">
             <p class="card-text"><%= post.content %></p>
             <div class="d-flex">
-            <p><%= post.likes.count %></p>
+            <p class="me-2"><%= post.likes.count %></p>
              <% if current_user.already_liked?(post) %>
-              <%= button_to post_likes_path(post), method: :delete do%>
+              <%= button_to post_likes_path(post), method: :delete, class:"btn btn-outline-primary like-btn" do%>
                 <i class="fa-solid fa-thumbs-up"></i>
               <% end %>
              <% else %>
-              <%= button_to post_likes_path(post), method: :post do %>
+              <%= button_to post_likes_path(post), method: :post, class:"btn btn-primary like-btn" do %>
                 <i class="fa-regular fa-thumbs-up"></i>
               <% end %>
              <% end %>
