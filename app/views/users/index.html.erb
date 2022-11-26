@@ -3,25 +3,26 @@
     <div class="col-10 mt-5">
       <h1>All users</h1>
       <% @users.each do |user|  %>
-        <div class="mb-2">
-          <% if user.avatar.attached? %>
-            <%= cl_image_tag user.avatar.key, height: 40, width: 40, crop: :fill, class:"navbar-user-pic me-2" %>
-          <% else %>
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" style="width: 40px; height:40px; border-radius: 50%;" alt="">
-          <% end %>
-          <% if user.is_followed_by?(current_user) %>
-            <%=link_to user_relationships_path(user), method: :delete, class:"ms-4" do %>
-              <button type="button" class="btn btn-outline-primary">Unfollow</button>
-            <% end %>
-          <% else %>
-            <%=link_to user_relationships_path(user), method: :post, class:"ms-4" do %>
-              <button type="button" class="btn btn btn-primary">+ Follow</button>
-            <% end %>
-          <% end %>
-        </div>
-        <p><%= link_to user.name, users_show_path(user.id), class:"link-btn"%></p>
-        <hr>
-     <% end %>
+      <div class="mb-2">
+        <% if user.avatar.attached? %>
+        <%= cl_image_tag user.avatar.key, height: 40, width: 40, crop: :fill, class:"navbar-user-pic me-2" %>
+        <% else %>
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+          style="width: 40px; height:40px; border-radius: 50%;" alt="">
+        <% end %>
+        <% if user.is_followed_by?(current_user) %>
+        <%=link_to user_relationships_path(user), method: :delete, class:"ms-4" do %>
+        <button type="button" class="btn btn-outline-primary">Unfollow</button>
+        <% end %>
+        <% else %>
+        <%=link_to user_relationships_path(user), method: :post, class:"ms-4" do %>
+        <button type="button" class="btn btn btn-primary">+ Follow</button>
+        <% end %>
+        <% end %>
+      </div>
+      <p><%= link_to user.name, users_show_path(user.id), class:"link-btn"%></p>
+      <hr>
+      <% end %>
     </div>
   </div>
 </div>

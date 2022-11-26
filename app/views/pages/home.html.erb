@@ -1,9 +1,8 @@
+<% if current_user %>
 <div class="container">
   <div class="row d-flex justify-content-center">
     <div class="col-10 mt-5">
 
-
-    <% if current_user %>
       <div class="d-flex justify-content-around">
         <div class="">
 
@@ -57,11 +56,19 @@
             <% end %>
           <% end %>
         </div>
-      <% else %>
-      <h1 class="mb-3">Welcome to Caralibro!</h1>
-      <h3>Create your account or login to use</h3>
-      <% end %>
       </div>
     </div>
   </div>
 </div>
+<% else %>
+<div class="home-cover d-flex justify-content-end align-items-end">
+  <div class="main-message me-5">
+    <h1 class="mb-3">Welcome to Caralibro!</h1>
+    <h3>Create your account or login</h3>
+    <div class="d-flex justify-content-center">
+    <%= link_to "Signup", new_user_registration_path, class:"btn btn btn-light me-3" %>
+    <%= link_to "Login ", new_user_session_path, class:"btn btn btn-light" %>
+    </div>
+  </div>
+</div>
+<% end %>

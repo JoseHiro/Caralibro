@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Caralibro</title>
+    <%= favicon_link_tag('favicon.png') %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,11 +14,11 @@
   <body>
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
     <%= yield %>
-    <hr class="mt-5">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <hr class="">
     <p class="mt-5">Caralibro.com</p>
   </body>
 </html>

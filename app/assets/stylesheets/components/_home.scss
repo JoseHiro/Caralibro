@@ -1,0 +1,21 @@
+.home-cover {
+  top: 0 !important;
+  height: 500px;
+  background-image: url("friends1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main-message {
+  padding: 15px;
+  border: solid 2px white;
+  height: 180px;
+  color: white;
+  margin-bottom: 100px;
+}
+
+.main-message .btn {
+  width: 100px;
+  border-radius: 10px;
+}
