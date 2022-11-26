@@ -26,11 +26,12 @@
         <%= f.input :avatar, as: :file %>
       </div>
 
-      <div class="form-actions">
-        <%= f.button :submit, "Sign up" %>
+      <div class="form-actions btn btn-primary ">
+        <%= f.button :submit, "Sign up", class:"sign-up-btn"%>
       </div>
     <% end %>
 
+    <hr>
     <%= render "devise/shared/links" %>
     </div>
   </div>

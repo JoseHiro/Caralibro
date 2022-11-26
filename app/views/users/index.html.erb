@@ -11,15 +11,15 @@
           <% end %>
           <% if user.is_followed_by?(current_user) %>
             <%=link_to user_relationships_path(user), method: :delete, class:"ms-4" do %>
-              <button type="button" class="btn btn-outline-primary">Unfriend</button>
+              <button type="button" class="btn btn-outline-primary">Unfollow</button>
             <% end %>
           <% else %>
             <%=link_to user_relationships_path(user), method: :post, class:"ms-4" do %>
-              <button type="button" class="btn btn btn-primary">+ Add friend</button>
+              <button type="button" class="btn btn btn-primary">+ Follow</button>
             <% end %>
           <% end %>
         </div>
-        <p><%= link_to user.name, users_show_path(user.id) %></p>
+        <p><%= link_to user.name, users_show_path(user.id), class:"link-btn"%></p>
         <hr>
      <% end %>
     </div>

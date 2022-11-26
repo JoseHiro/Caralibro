@@ -1,48 +1,50 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
     <div class="col-10 mt-5">
-    <h1>Home Page</h1>
 
-    <div class="d-flex justify-content-around">
-      <div class="">
-      <% if current_user %>
-        <% if current_user.posts %>
-          <div class="card-deck">
-          <% current_user.posts.each do |post| %>
-            <div class="card mb-3" style="width: 600px;">
-            <% post.photos.each do |photo| %>
-                <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
-            <% end %>
-              <div class="card-header">
-                <%= cl_image_tag current_user.avatar.key, height: 30, width: 30, crop: :fill, class:"navbar-user-pic"%>
-                <%= current_user.name %>
-              </div>
-              <div class="card-body">
-                <p class="card-text"><%= post.content %></p>
-              <div class="d-flex">
-              <p class="me-2"><%= post.likes.count %></p>
-              <% if current_user.already_liked?(post) %>
-                <%= button_to post_likes_path(post), method: :delete, class:"btn btn-outline-primary like-btn" do%>
-                  <i class="fa-solid fa-thumbs-up"></i>
-                <% end %>
-              <% else %>
-                <%= button_to post_likes_path(post), method: :post, class:"btn btn-outline-primary like-btn" do %>
-                  <i class="fa-regular fa-thumbs-up"></i>
-                <% end %>
+
+    <% if current_user %>
+      <div class="d-flex justify-content-around">
+        <div class="">
+
+          <% if current_user.posts %>
+            <div class="card-deck">
+            <% current_user.posts.each do |post| %>
+              <div class="card mb-3" style="width: 600px;">
+              <% post.photos.each do |photo| %>
+                  <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
               <% end %>
+                <div class="card-header">
+                  <%= cl_image_tag current_user.avatar.key, height: 30, width: 30, crop: :fill, class:"navbar-user-pic"%>
+                  <%= link_to current_user.name, users_show_path(current_user), class:"link-btn"%>
+                </div>
+                <div class="card-body">
+                  <p class="card-text"><%= post.content %></p>
+                <div class="d-flex">
+                <p class="me-2"><%= post.likes.count %></p>
+                <% if current_user.already_liked?(post) %>
+                  <%= button_to post_likes_path(post), method: :delete, class:"btn btn-outline-primary like-btn" do%>
+                    <i class="fa-solid fa-thumbs-up"></i>
+                  <% end %>
+                <% else %>
+                  <%= button_to post_likes_path(post), method: :post, class:"btn btn-outline-primary like-btn" do %>
+                    <i class="fa-regular fa-thumbs-up"></i>
+                  <% end %>
+                <% end %>
+                  </div>
                 </div>
               </div>
+            <% end %>
             </div>
           <% end %>
-          </div>
-        <% end %>
-      <% end %>
-      </div>
+        </div>
 
 
 
-      <div>
-        <% if current_user.followings %>
+        <div>
+          <% if current_user.followings %>
+            <h3 class="ms-2">Following list</h3>
+            <hr>
             <% current_user.followings.each do |follow_user| %>
               <div class="d-flex ms-2 mb-3">
                 <% if follow_user.avatar.attached? %>
@@ -50,14 +52,16 @@
                 <% else %>
                   <img class="me-2" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" style="width: 40px; height:40px; border-radius: 50%;" alt="">
                 <% end %>
-                <p><%= follow_user.name %></p>
+                <p class="mt-2"><%= link_to follow_user.name, users_show_path(current_user), class:"link-btn"%></p>
               </div>
             <% end %>
-        <% end %>
+          <% end %>
+        </div>
+      <% else %>
+      <h1 class="mb-3">Welcome to Caralibro!</h1>
+      <h3>Create your account or login to use</h3>
+      <% end %>
       </div>
-
-    </div>
-
     </div>
   </div>
 </div>
