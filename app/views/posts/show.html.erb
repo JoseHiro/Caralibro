@@ -3,26 +3,35 @@
     <div class="row d-flex justify-content-center">
       <div class="col-10 mt-5">
         <h3>Post page</h3>
+        <hr>
         <% @post.photos.each do |photo| %>
           <%= cl_image_tag photo.key, height: 150, width: 200, crop: :fill %>
         <% end %>
         <p><%=current_user.name %></p>
         <h3><%= @post.content %></h3>
-        <hr>
-        <p><%=  @post.likes.count%></p>
+
+        <div class="d-flex mb-3">
+        <p class="mt-2 me-2"><%=  @post.likes.count%></p>
         <% if current_user.already_liked?(@post) %>
-          <%= button_to post_likes_path(@post), method: :delete do%>
+          <%= button_to post_likes_path(@post), method: :delete, class:"btn btn-outline-primary like-btn" do%>
             <i class="fa-solid fa-thumbs-up"></i>
           <% end %>
         <% else %>
-          <%= button_to post_likes_path(@post), method: :post do %>
+          <%= button_to post_likes_path(@post), method: :post, class:"btn btn-outline-primary like-btn" do %>
             <i class="fa-regular fa-thumbs-up"></i>
           <% end %>
         <% end %>
-        <%= link_to "Edit post", edit_post_path(@post), class:"btn btn-primary"%>
-        <%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger"%>
-        <%= link_to "Back to all posts", posts_path %>
-        
+        </div>
+
+
+        <hr>
+        <div class="d-flex mb-4">
+        <%= link_to "Edit post", edit_post_path(@post), class:"btn btn-primary me-4"%>
+        <%= button_to "Delete", post_path(@post), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-light"%>
+        </div>
+
+        <%= link_to "Back to all posts", posts_path, class:"mt-3" %>
+
       </div>
     </div>
   </div>
