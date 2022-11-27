@@ -52,7 +52,7 @@
             <div class="card-body">
             <p class="card-text"><%= post.content %></p>
             <div class="d-flex">
-            <p class="me-2"><%= post.likes.count %></p>
+             <p class="me-2"><%= post.likes.count %></p>
              <% if current_user.already_liked?(post) %>
               <%= button_to post_likes_path(post), method: :delete, class:"btn btn-outline-primary like-btn" do%>
                 <i class="fa-solid fa-thumbs-up"></i>
@@ -61,6 +61,9 @@
               <%= button_to post_likes_path(post), method: :post, class:"btn btn-primary like-btn" do %>
                 <i class="fa-regular fa-thumbs-up"></i>
               <% end %>
+
+              <%= link_to "This post", post_path(post), class:"btn btn-primary me-3 ms-3 "%>
+              <%= link_to "Edit", edit_post_path(post), class:"btn btn-primary"%>
              <% end %>
             </div>
           </div>
